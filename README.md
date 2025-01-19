@@ -12,8 +12,9 @@ you can get `authoriztion.txt` from authorization header and `cookie.txt` from c
 ## How to use
 
 1. run `npm install` to install dependencies
-2. run `npm run start` to start the server
-3. the api will be available at `http://localhost:3000`
+2. install redis and run redis server  using `redis-server`
+3. after configuring .env file run `npm run start` to start the server
+4. the api will be available at `http://localhost:3000`
 
 ## endpoint `POST /create-image`
 
