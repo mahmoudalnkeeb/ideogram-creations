@@ -1,9 +1,7 @@
-const fs = require('fs');
-const path = require('path');
 const uuid = require('uuid');
 const { getTraceparent } = require('./traceparent');
-const authorization = fs.readFileSync(path.join(__dirname, 'authorization.txt'), 'utf8');
-const cookie = fs.readFileSync(path.join(__dirname, 'cookie.txt'), 'utf8');
+const authorization = process.env.AUTHORIZATION;
+const cookie = process.env.COOKIE;
 const traceparent = getTraceparent();
 
 function getRequestId() {
@@ -54,7 +52,7 @@ async function login() {
         Referer: 'https://ideogram.ai/t/my-images',
         'Referrer-Policy': 'strict-origin-when-cross-origin',
       },
-      body: JSON.stringify({ external_photo_url: process.env.EXTERNAL_PHOTO_URL }),
+      body: JSON.stringify({ external_photo_url: '' }),
       method: 'POST',
     });
 
