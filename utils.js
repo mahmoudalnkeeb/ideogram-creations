@@ -1,8 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const uuid = require('uuid');
+const { getTraceparent } = require('./traceparent');
 const authorization = fs.readFileSync(path.join(__dirname, 'authorization.txt'), 'utf8');
 const cookie = fs.readFileSync(path.join(__dirname, 'cookie.txt'), 'utf8');
+const traceparent = getTraceparent();
 
 function getRequestId() {
   return uuid.v4().replace(/-/g, '');
@@ -46,7 +48,7 @@ async function login() {
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
         'sec-gpc': '1',
-        traceparent: '00-fd16618b86ea493d9606d0c8536291fd-fd16618b86ea493d-00',
+        traceparent,
         'x-request-id': getRequestId(),
         cookie,
         Referer: 'https://ideogram.ai/t/my-images',
@@ -79,7 +81,7 @@ async function submit(user_handle, user_id, org_id, session_id, location) {
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
         'sec-gpc': '1',
-        traceparent: '00-fd16618b86ea493d9606d0c8536291fd-fd16618b86ea493d-00',
+        traceparent,
         'x-ideo-org': org_id,
         'x-request-id': getRequestId(),
         cookie,
@@ -127,7 +129,7 @@ async function sample(prompt, user_id, org_id) {
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
         'sec-gpc': '1',
-        traceparent: '00-fd16618b86ea493d9606d0c8536291fd-fd16618b86ea493d-00',
+        traceparent,
         'x-ideo-org': org_id,
         'x-request-id': getRequestId(),
         cookie,
@@ -176,7 +178,7 @@ async function retriveRequests(request_id, org_id) {
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
         'sec-gpc': '1',
-        traceparent: '00-fd16618b86ea493d9606d0c8536291fd-fd16618b86ea493d-00',
+        traceparent,
         'x-ideo-org': org_id,
         'x-request-id': getRequestId(),
         cookie,
@@ -210,7 +212,7 @@ async function userGallary(userId, org_id) {
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
         'sec-gpc': '1',
-        traceparent: '00-fd16618b86ea493d9606d0c8536291fd-fd16618b86ea493d-00',
+        traceparent,
         'x-ideo-org': org_id,
         'x-request-id': getRequestId(),
         cookie,
